@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
-
+const {ApolloError} = require('apollo-server-express')
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
-  // function for our authenticated routes
+  // function for our authenticatication, will be using this in context argument in query
   authMiddleware: function (req, res, next) {
-    // allows token to be sent via  req.query or headers
+    // retrieve token from either req.query or req.headers
     let token = req.query.token || req.headers.authorization;
 
     // ["Bearer", "<tokenvalue>"]
@@ -16,7 +16,7 @@ module.exports = {
     }
 
     if (!token) {
-      return res.status(400).json({ message: 'You have no token!' });
+      return req;
     }
 
     // verify token and get user data out of it
@@ -25,11 +25,8 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return res.status(400).json({ message: 'invalid token!' });
     }
-
-    // send to next endpoint
-    next();
+    return req;
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
