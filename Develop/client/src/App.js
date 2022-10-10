@@ -4,13 +4,15 @@ import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client';
 import {setContext} from '@apollo/client/link/context'
 import Auth from './utils/auth'
 
 
 //default is '/graphql'
-const httpLink = new HttpLink();
+const httpLink =  createHttpLink({
+  uri: '/graphql'
+});
 
 //attaches a new header to every request made through apollo
 //Said header will have the user's token

@@ -24,7 +24,14 @@ export const ADD_USER = gql`
                 username
                 email
                 bookCount
-                saveBooks
+                savedBooks {
+                    bookId
+                    authors
+                    description
+                    title
+                    image
+                    link
+                }
             }
         }
     }
