@@ -41,14 +41,18 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-        saveBook: async (parent, { bookData, user}) => { //check to see if we should use context or just check logged in before query
+        saveBook: async (parent, { bookData }, context) => { //check to see if we should use context or just check logged in before query
             try {
-                const updatedUser = await User.findOneAndUpdate(
-                    {_id: user._id},
-                    {$addToSet: { saveBooks: bookData}},
-                    {new: true, runValidators: true}
-                );
-                return updatedUser;
+                if (context.user) {
+                    const updatedUser = await User.findOneAndUpdate(
+                        {_id: context.user._id},
+                        {$addToSet: { saveBooks: bookData}},
+                        {new: true, runValidators: true}
+                    );
+                    return updatedUser;
+                } else {
+                    throw new ApolloError('You need to be Logged in!')
+                }
             } catch (err) {
                 throw new ApolloError('Error in saving book!')
             }
