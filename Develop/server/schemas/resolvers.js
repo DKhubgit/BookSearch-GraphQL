@@ -57,16 +57,24 @@ const resolvers = {
                 throw new ApolloError('Error in saving book!')
             }
         },
-        removeBook: async (parent, { bookId, user }) => {
-            const updatedUser = await User.findOneAndUpdate(
-                { _id: user._id},
-                { $pull: {saveBooks: {bookId: bookId}}},
-                {new: true}
-            );
-            if (!updatedUser) {
-                throw ApolloError('Could not find User');
+        removeBook: async (parent, { bookId, user }, context) => {
+            try {
+                if (context.user) {
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: user._id},
+                        { $pull: {saveBooks: {bookId: bookId}}},
+                        {new: true}
+                    );
+                    if (!updatedUser) {
+                        throw ApolloError('Could not find User');
+                    }
+                    return updatedUser;
+                } else {
+                    throw new ApolloError('You need to be Logged in!')
+                }
+            } catch {
+                throw new ApolloError('Error in removing book!')
             }
-            return updatedUser;
         }
     }
 }
