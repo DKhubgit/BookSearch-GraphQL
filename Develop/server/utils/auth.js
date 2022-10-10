@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
-const {ApolloError} = require('apollo-server-express')
+
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
   // function for our authenticatication, will be using this in context argument in query
-  authMiddleware: function (req, res, next) {
+  authMiddleware: function ({req}) {
     // retrieve token from either req.query or req.headers
     let token = req.query.token || req.headers.authorization;
 

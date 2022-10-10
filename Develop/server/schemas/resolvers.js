@@ -1,6 +1,6 @@
 const { User } = require("../models");
 const {ApolloError} = require('apollo-server-express');
-const { signToken } = require('../utils/auth')
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -8,7 +8,8 @@ const resolvers = {
         //extracted from the token.
         me: async (parent, args, context) => {
             if(context.user) {
-                return await User.findOne({_id: context.user._id}).populate('savedBooks');
+                const user = await User.findOne({_id: context.user._id}).populate('savedBooks');
+                return user;
             } else {
                 throw new ApolloError('You need to be Logged in!')
             }

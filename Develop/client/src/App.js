@@ -16,7 +16,7 @@ const httpLink =  createHttpLink({
 
 //attaches a new header to every request made through apollo
 //Said header will have the user's token
-const authLink = setContext((request, { headers }) => {
+const authLink = setContext((_, { headers }) => {
   const token = Auth.getToken();
   return {
     headers: {

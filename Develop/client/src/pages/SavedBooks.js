@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 import { removeBookId } from '../utils/localStorage';
@@ -9,24 +9,24 @@ import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
-
+  // const [userData, setUserData] = useState({});
+  // console.log(userData)
   //authenticates user through context/header in query
-  const {loading, data} = useQuery(GET_ME);
   const [removeBook] = useMutation(REMOVE_BOOK);
+  const {loading, data} = useQuery(GET_ME);
 
-  const user = data?.me || {};
+  // console.log(data);
+  let userData = data
 
   if (loading) {
     return <div>loading...</div>
   }
-
-  if (user.username) {
-    setUserData(user);
-  } else {
-    return <div>You need to Log in!</div>
-  }
-
+  // if (user) {
+  //   setUserData(user);
+  //   // console.log(user)
+  // } else {
+  //   return <div>You need to Log in!</div>
+  // }
 
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
@@ -40,8 +40,8 @@ const SavedBooks = () => {
         throw new Error('something went wrong!');
       }
 
-      const updatedUser = removeData.user
-      setUserData(updatedUser);
+      const UserData = removeData.user
+      // setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -58,12 +58,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {userData.me.savedBooks.length
+            ? `Viewing ${userData.me.savedBooks.length} saved ${userData.me.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userData.me.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}

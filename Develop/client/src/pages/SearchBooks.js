@@ -66,11 +66,10 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
     try {
       // authenticates user in mutation (context), returns a user
       const { data } = await saveBook({
-          variables: { ...bookToSave },
+          variables: { content: { ...bookToSave } },
       })
 
       const user = data?.user || {};

@@ -15,7 +15,6 @@ export const LOGIN_USER = gql`
                     description
                     title
                     image
-                    link
                 }
             }
         }
@@ -37,7 +36,6 @@ export const ADD_USER = gql`
                     description
                     title
                     image
-                    link
                 }
             }
         }
@@ -47,19 +45,16 @@ export const ADD_USER = gql`
 export const SAVE_BOOK = gql`
     mutation saveBook($content: BookContent!) {
         saveBook(content: $content) {
-            user {
-                _id
-                username
-                email
-                bookCount
-                savedBooks {
-                    bookId
-                    authors
-                    description
-                    title
-                    image
-                    link
-                }
+            _id
+            username
+            email
+            bookCount
+            savedBooks {
+                bookId
+                authors
+                description
+                title
+                image
             }
         }
     }
@@ -79,7 +74,6 @@ export const REMOVE_BOOK = gql`
                     description
                     title
                     image
-                    link
                 }
             }
         }

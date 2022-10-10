@@ -4,7 +4,7 @@ const db = require('./config/connection');
 const routes = require('./routes');
 
 const { ApolloServer } = require('apollo-server-express')
-const {authMiddleWare } = require('./utils/auth')
+const {authMiddleware } = require('./utils/auth')
 const {typeDefs, resolvers} = require('./schemas')
 
 const app = express();
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleWare, //appends context parameter to queries and helps get the JWT
+  context: authMiddleware, //appends context parameter to queries and helps get the JWT
 })
 
 app.use(express.urlencoded({ extended: true }));
