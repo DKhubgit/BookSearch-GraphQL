@@ -33,12 +33,11 @@ const LoginForm = () => {
       const { data } = await loginUser({
         variables: { email: userFormData.email, password: userFormData.password },
       });
-      console.log(data)
+
       if (!data.login.user) {
         throw new Error('something went wrong!');
       }
 
-      console.log(data.login.user);
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
