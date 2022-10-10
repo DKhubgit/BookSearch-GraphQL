@@ -42,12 +42,12 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-        saveBook: async (parent, { bookData }, context) => { //check to see if we should use context or just check logged in before query
+        saveBook: async (parent,  { content: bookData } , context) => { //check to see if we should use context or just check logged in before query
             try {
                 if (context.user) {
                     const updatedUser = await User.findOneAndUpdate(
                         {_id: context.user._id},
-                        {$addToSet: { saveBooks: bookData}},
+                        {$addToSet: { savedBooks: bookData }},
                         {new: true, runValidators: true}
                     );
                     return updatedUser;

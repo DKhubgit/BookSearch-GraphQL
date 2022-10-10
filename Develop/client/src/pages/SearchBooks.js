@@ -69,9 +69,8 @@ const SearchBooks = () => {
     try {
       // authenticates user in mutation (context), returns a user
       const { data } = await saveBook({
-          variables: { content: { ...bookToSave } },
+          variables: { content: {...bookToSave } },
       })
-
       const user = data?.user || {};
 
       // if mutation returns a user, then save was successful. (but check for book in the user's array)
