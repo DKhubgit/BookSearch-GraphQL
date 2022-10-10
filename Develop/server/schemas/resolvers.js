@@ -9,7 +9,6 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const user = await User.findOne({_id: context.user._id});
-                console.log(user)
                 return user;
             } else {
                 throw new ApolloError('You need to be Logged in!')
@@ -59,12 +58,12 @@ const resolvers = {
                 throw new ApolloError('Error in saving book!')
             }
         },
-        removeBook: async (parent, { bookId, user }, context) => {
+        removeBook: async (parent, { bookId }, context) => {
             try {
                 if (context.user) {
                     const updatedUser = await User.findOneAndUpdate(
-                        { _id: user._id},
-                        { $pull: {saveBooks: {bookId: bookId}}},
+                        { _id: context.user._id},
+                        { $pull: {savedBooks: {bookId: bookId}}},
                         {new: true}
                     );
                     if (!updatedUser) {
