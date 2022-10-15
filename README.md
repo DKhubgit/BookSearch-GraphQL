@@ -43,7 +43,18 @@ Again, you can clone it to your local computer but please make a pull request. I
 
 ## Tests 
 
-(screenshots)
+**Landing Page**
+![booksearch-screenshot1](https://user-images.githubusercontent.com/103972201/196010004-27ddc9af-b657-483d-b885-bd44b6962615.PNG)
+<br></br>
+**login page - Modal**
+![booksearch-screenshot2](https://user-images.githubusercontent.com/103972201/196010006-ca892c93-4133-4a24-9266-6b772f70fe78.PNG)
+<br></br>
+**Searching books**
+![booksearch-screenshot3](https://user-images.githubusercontent.com/103972201/196010007-a8d8ddde-8c3d-4acd-b3d3-56d700ebe9cb.PNG)
+<br></br>
+**Viewing saved Books**
+![booksearch-screenshot4](https://user-images.githubusercontent.com/103972201/196010009-662020f7-458f-4c71-b192-43179748abbd.PNG)
+<br></br>
 
 ## Questions
 
